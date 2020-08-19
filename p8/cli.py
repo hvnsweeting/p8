@@ -77,6 +77,7 @@ def main():
         run()
     else:
         cmd = sys.argv[1]
+        # TODO use argparse here to handle args
         if cmd == "init":
             init()
 
