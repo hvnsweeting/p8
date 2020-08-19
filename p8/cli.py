@@ -9,19 +9,22 @@ DEFAULT_INIT_FILE = """\
 failfast = true
 
 [black]
-command = black --line-length 120 .
+command = {pythonexecutable} -m black --line-length 120 .
 
 [flake8]
-command = flake8 --ignore E501
+command = {pythonexecutable} -m flake8 --ignore E501
 
 [mypy]
-command = mypy --ignore-missing-imports .
+command = {pythonexecutable} -m mypy --ignore-missing-imports .
 """
 
 
 def generate_default_init_file():
     with open("p8.ini", "w") as f:
-        f.write(DEFAULT_INIT_FILE)
+        if sys.platform == "win32":
+            f.write(DEFAULT_INIT_FILE.format(pythonexecutable=sys.executable))
+        else:
+            f.write(DEFAULT_INIT_FILE.format(pythonexecutable="python"))
 
 
 def init():
