@@ -47,6 +47,8 @@ def run():
 
     commands = []
     for section in Config.sections():
+        if section == "p8":
+            continue
         if Config.has_option(section, "command"):
             command = Config.get(section, "command")
             commands.append(command)
