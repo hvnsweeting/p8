@@ -55,13 +55,20 @@ def run():
 
     failfast = Config.getboolean("p8", "failfast")
 
+    exitcodes = set()
     for cmd in commands:
         exitcode, output = subprocess.getstatusoutput(cmd)
+        exitcodes.add(exitcode)
         print("Running: {!r}".format(cmd))
         print("Output: {}".format(output))
         print("Exit code: {}".format(exitcode))
         if failfast and exitcode != 0:
             sys.exit(exitcode)
+
+    if exitcodes != {0}:
+        sys.exit(1)
+    else:
+        sys.exit(0)
 
 
 def main():
